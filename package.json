@@ -1,0 +1,18 @@
+{
+  "name": "rbf",
+  "version": "0.1.0",
+  "description": "Radial Basis Function (RBF) interpolation for node and the browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thibauts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thibauts/rbf.git"
+  },
+  "dependencies": {
+    "numeric": "~1.2.6"
+  }
+}
