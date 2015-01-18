@@ -25,6 +25,8 @@ var values = [
   1.0
 ]
 
+// RBF accepts a distance function as a third parameter :
+// either 'linear', 'cubic' or a custom distance function.
 var rbf = RBF(points, values);
 
 var value = ;
