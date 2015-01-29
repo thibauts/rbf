@@ -51,8 +51,12 @@
 
       // Compute basis functions weights by solving
       // the linear system of equations
+/*      
       var invM = numeric.inv(M);
       var w = numeric.dot(invM, values);
+*/
+      var LU = numeric.LU(M);
+      var w = numeric.LUsolve(LU, values);
 
       // The returned interpolant will compute the value at any point 
       // by summing the weighted contributions of the input points
