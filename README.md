@@ -36,7 +36,7 @@ var values = [
 // - multiquadric: sqrt((r/epsilon) ** 2 + 1)
 // - inverse-multiquadric: 1 / sqrt((r/epsilon) ** 2 + 1)
 //
-// epsilon can be provided as a 4th parameter.
+// epsilon can be provided as a 4th parameter. Defaults to the average euclidean distance between points.
 //
 var rbf = RBF(points, values /*, distanceFunction, epsilon */);
 

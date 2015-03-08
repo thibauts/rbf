@@ -26,9 +26,23 @@ function RBF(points, values, distanceFunction, epsilon) {
   // the matrix nested array.
   var M = numeric.identity(points.length);
 
+  // First compute the point to point distance matrix
+  // to allow computing epsilon if it's not provided
   for(var j=0; j<points.length; j++) {
     for(var i=0; i<points.length; i++) {
-      M[j][i] = distance(norm(points[i], points[j]), epsilon);
+      M[j][i] = norm(points[i], points[j]);
+    }
+  }
+
+  // if not provided, compute espilon as the average distance between points
+  if(epsilon === undefined) {
+    epsilon = numeric.sum(M) / (Math.pow(points.length, 2) - points.length);
+  }
+
+  // update the matrix to reflect the requested distance function
+  for(var j=0; j<points.length; j++) {
+    for(var i=0; i<points.length; i++) {
+      M[j][i] = distance(M[j][i], epsilon);
     }
   }
 
