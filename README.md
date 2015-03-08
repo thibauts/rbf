@@ -26,10 +26,19 @@ var values = [
 ]
 
 // RBF accepts a distance function as a third parameter :
-// either 'linear', 'cubic' or a custom distance function.
-var rbf = RBF(points, values);
-
-var value = ;
+// either one of the following strings or a custom distance function (defaults to 'linear').
+//
+// - linear: r
+// - cubic: r**3
+// - quintic: r**5
+// - thin-plate: r**2 * log(r)
+// - gaussian: exp(-(r/epsilon) ** 2)
+// - multiquadric: sqrt((r/epsilon) ** 2 + 1)
+// - inverse-multiquadric: 1 / sqrt((r/epsilon) ** 2 + 1)
+//
+// epsilon can be provided as a 4th parameter.
+//
+var rbf = RBF(points, values /*, distanceFunction, epsilon */);
 
 console.log(rbf([0, 50])); // => 0.5
 ```
