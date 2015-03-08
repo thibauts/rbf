@@ -28,7 +28,7 @@ function RBF(points, values, distanceFunction, epsilon) {
 
   for(var j=0; j<points.length; j++) {
     for(var i=0; i<points.length; i++) {
-      M[j][i] = distance(points[i], points[j], epsilon);
+      M[j][i] = distance(norm(points[i], points[j]), epsilon);
     }
   }
 
@@ -41,7 +41,7 @@ function RBF(points, values, distanceFunction, epsilon) {
   // by summing the weighted contributions of the input points
   function interpolant(p) {
     var distances = points.map(function(point) {
-      return distance(p, point, epsilon);
+      return distance(norm(p, point), epsilon);
     });
 
     var products = numeric.mul(distances, w);
@@ -56,36 +56,36 @@ function RBF(points, values, distanceFunction, epsilon) {
 }
 
 
-function distanceLinear(pa, pb) {
+function norm(pa, pb) {
   return numeric.norm2(numeric.sub(pb, pa));
 }
 
-function distanceCubic(pa, pb) {
-  return Math.pow(distanceLinear(pa, pb), 3);
+function distanceLinear(r) {
+  return r;
 }
 
-function distanceQuintic(pa, pb) {
-  return Math.pow(distanceLinear(pa, pb), 5);
+function distanceCubic(r) {
+  return Math.pow(r, 3);
 }
 
-function distanceThinPlate(pa, pb) {
-  var r = distanceLinear(pa, pb);
+function distanceQuintic(r) {
+  return Math.pow(r, 5);
+}
+
+function distanceThinPlate(r) {
   if(r === 0) return 0;
   return Math.pow(r, 2) * Math.log(r);
 }
 
-function distanceGaussian(pa, pb, epsilon) {
-  var r = distanceLinear(pa, pb);
+function distanceGaussian(r, epsilon) {
   return Math.exp(- Math.pow(r / epsilon, 2));
 }
 
-function distanceInverseMultiquadric(pa, pb, epsilon) {
-  var r = distanceLinear(pa, pb);
+function distanceInverseMultiquadric(r, epsilon) {
   return 1.0 / Math.sqrt(Math.pow(r / epsilon, 2) + 1);
 }
 
-function distanceMultiquadric(pa, pb, epsilon) {
-  var r = distanceLinear(pa, pb);
+function distanceMultiquadric(r, epsilon) {
   return Math.sqrt(Math.pow(r / epsilon, 2) + 1);
 }
 
