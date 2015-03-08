@@ -1,6 +1,6 @@
 rbf
 ===
-### Radial Basis Function (RBF) interpolation in Javascript
+### Radial Basis Function (RBF) interpolation
 
 Builds Radial Basis Functions for input and output values of arbitrary dimensionality using standard or custom distance functions.
 
