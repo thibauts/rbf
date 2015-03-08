@@ -1,7 +1,7 @@
 {
   "name": "rbf",
-  "version": "1.1.1",
-  "description": "Radial Basis Function (RBF) interpolation for node and the browser",
+  "version": "1.1.2",
+  "description": "Radial Basis Function (RBF) interpolation in Javascript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
