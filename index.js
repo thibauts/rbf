@@ -34,7 +34,7 @@ function RBF(points, values, distanceFunction, epsilon) {
     }
   }
 
-  // if not provided, compute espilon as the average distance between points
+  // if needed, compute espilon as the average distance between points
   if(epsilon === undefined) {
     epsilon = numeric.sum(M) / (Math.pow(points.length, 2) - points.length);
   }
@@ -46,10 +46,35 @@ function RBF(points, values, distanceFunction, epsilon) {
     }
   }
 
+  // determine dimensionality of target values
+  var sample = values[0];
+  var D = typeof sample === 'number'
+    ? 1
+    : sample.length;
+
+  // generalize to vector values
+  if(D === 1) {
+    values = values.map(function(value) {
+      return [value];
+    });
+  }
+
+  // reshape values by component
+  var tmp = new Array(D);
+  for(var i=0; i<D; i++) {
+    tmp[i] = values.map(function(value) {
+      return value[i];
+    });
+  }
+  values = tmp;
+
   // Compute basis functions weights by solving
-  // the linear system of equations
+  // the linear system of equations for each target component
+  var w = new Array(D);
   var LU = numeric.LU(M);
-  var w = numeric.LUsolve(LU, values);
+  for(var i=0; i<D; i++) {
+    w[i] = numeric.LUsolve(LU, values[i]);
+  }
 
   // The returned interpolant will compute the value at any point 
   // by summing the weighted contributions of the input points
@@ -58,12 +83,15 @@ function RBF(points, values, distanceFunction, epsilon) {
       return distance(norm(p, point), epsilon);
     });
 
-    var products = numeric.mul(distances, w);
-    var sum = products.reduce(function(acc, value) {
-      return acc + value;
-    }, 0);
+    var sums = new Array(D);
+    for(var i=0; i<D; i++) {
+      var products = numeric.mul(distances, w[i]);
+      sums[i] = products.reduce(function(acc, value) {
+        return acc + value;
+      }, 0);
+    }
 
-    return sum;
+    return sums;
   }
 
   return interpolant;

@@ -2,6 +2,8 @@ rbf
 ===
 ### Radial Basis Function (RBF) interpolation for node and the browser
 
+Builds radial basis functions for input and output values of arbitrary dimensionality using standard or custom distance functions.
+
 Installation
 ------------
 
@@ -20,6 +22,8 @@ var points = [
   [0, 100]
 ];
 
+// values could be vectors of any dimensionality.
+// The computed interpolant function will return values or vectors accordingly.
 var values = [
   0.0,
   1.0
