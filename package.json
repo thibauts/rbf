@@ -1,6 +1,6 @@
 {
   "name": "rbf",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Radial Basis Function (RBF) interpolation for node and the browser",
   "main": "index.js",
   "scripts": {
