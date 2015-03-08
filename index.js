@@ -79,16 +79,15 @@ function RBF(points, values, distanceFunction, epsilon) {
   // The returned interpolant will compute the value at any point 
   // by summing the weighted contributions of the input points
   function interpolant(p) {
-    var distances = points.map(function(point) {
-      return distance(norm(p, point), epsilon);
-    });
+    
+    var distances = new Array(points.length);
+    for(var i=0; i<points.length; i++) {
+      distances[i] = norm(p, points[i], epsilon);
+    }
 
     var sums = new Array(D);
     for(var i=0; i<D; i++) {
-      var products = numeric.mul(distances, w[i]);
-      sums[i] = products.reduce(function(acc, value) {
-        return acc + value;
-      }, 0);
+      sums[i] = numeric.sum(numeric.mul(distances, w[i]));
     }
 
     return sums;
